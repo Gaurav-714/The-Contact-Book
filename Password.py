@@ -44,8 +44,9 @@ class ChangePasswordFrame(Frame):
     def change_Password_click(self):
         con = sqlite3.connect('The-Contact-Book//Contacts.db')
         cur = con.cursor()
-        cur.execute("SELECT * FROM LoginInfo WHERE Password = ?",(self.old_password_entry.get(),))
-        record = cur.fetchone()
+        cur.execute("SELECT * FROM LoginInfo WHERE Password = ?",
+                    (self.old_password_entry.get(),)) # -> Here the 'Comma' tells that its a 'Tuple'
+        record = cur.fetchone()                                  
         if record is not None:
             if self.new_password_entry.get() == self.confirm_password_entry.get():
                 cur.execute("UPDATE LoginInfo SET Password = ? WHERE Password = ?",

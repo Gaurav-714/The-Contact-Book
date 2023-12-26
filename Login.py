@@ -10,7 +10,7 @@ class LoginWindow(Tk):
         self.title("Login")
         self.geometry("400x250")
 
-        # For Interface Heading Frame...
+        # For Interface Heading Frame... 
         style = Style()
         style.configure('Header.TFrame', background='grey')
 

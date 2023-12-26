@@ -30,7 +30,7 @@ class HomeWindow(Tk):
                          width = 18, foreground = 'grey')
 
         manage_contacts_button = Button(navigation_frame, text = "Manage Contacts", style = 'Sidebar.TButton')
-        manage_contacts_button.pack(padx = 10, pady = 10, ipadx = 10, ipady = 10)
+        manage_contacts_button.pack(padx = 10, ipadx = 10, ipady = 10) # , command = self.all_contacts_frame) # Imported From 'Contacts.py'
 
         change_Password_button = Button(navigation_frame, text  = "Change Password", style = 'Sidebar.TButton',
                                         command = self.change_password_button_click)
@@ -38,7 +38,7 @@ class HomeWindow(Tk):
 
         logout_button = Button(navigation_frame, text = "Logout",
                                style = 'Sidebar.TButton', command = self.logout_button_click)
-        logout_button.pack(padx = 10, pady = 10, ipadx = 10, ipady = 10)
+        logout_button.pack(padx = 10, ipadx = 10, ipady = 10)
 
         style.configure('Navigation.TFrame', background = 'white')
 
@@ -47,10 +47,14 @@ class HomeWindow(Tk):
 
         Contacts.ManageContactsFrame(self.content_frame)
 
+    def all_contacts_frame(self):
+            
+        Contacts.ManageContactsFrame(self.content_frame)
+
     def logout_button_click(self):
         self.destroy()
         Login.LoginWindow()
 
     def change_password_button_click(self):
         Password.ChangePasswordFrame(self.content_frame)
-
+        
