@@ -4,9 +4,10 @@ from tkinter import messagebox
 import sqlite3
 
 class ChangePasswordFrame(Frame):
+    
     def __init__(self, parent):
         Frame.__init__(self, parent)
-
+        
         style = Style()
         style.configure('TFrame', background = 'white')
         style.configure('TLabel', background = 'white',
@@ -18,21 +19,21 @@ class ChangePasswordFrame(Frame):
         old_password_label = Label(self, text = "Old Password : ")
         old_password_label.grid(row = 0, column = 0, sticky = E)
         
-        self.old_password_entry = Entry(self, width = 40, font = 'Times 15', foreground = 'grey')
+        self.old_password_entry = Entry(self, width = 25, font = 'Times 15', foreground = 'grey')
         self.old_password_entry.grid(row = 0, column = 1, padx = 10, pady = 10,
                                      ipadx = 5, ipady = 5)
         
         new_password_label = Label(self, text = "New Password : ")
         new_password_label.grid(row = 1, column = 0, sticky = E)
         
-        self.new_password_entry = Entry(self, width = 40, font = 'Times 15', foreground = 'grey')
+        self.new_password_entry = Entry(self, width = 25, font = 'Times 15', foreground = 'grey')
         self.new_password_entry.grid(row = 1, column = 1, padx = 10, pady = 10,
                                ipadx = 5, ipady = 5)
         
         confirm_password_label = Label(self, text = "Confirm Password : ")
         confirm_password_label.grid(row = 2, column = 0, sticky = E)
         
-        self.confirm_password_entry = Entry(self, width = 40, font = 'Times 15', foreground = 'grey')
+        self.confirm_password_entry = Entry(self, width = 25, font = 'Times 15', foreground = 'grey')
         self.confirm_password_entry.grid(row = 2, column = 1, padx = 10, pady = 10,
                                    ipadx = 5, ipady = 5)
 

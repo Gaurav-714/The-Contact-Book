@@ -5,6 +5,7 @@ import Password
 import Contacts
 
 class HomeWindow(Tk):
+
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
 
@@ -17,7 +18,7 @@ class HomeWindow(Tk):
         header_frame = Frame(self, style = 'Header.TFrame')
         header_frame.pack(fill = X)
 
-        style.configure('Header.TLabel', font  = 'Times 40 bold',
+        style.configure('Header.TLabel', font  = 'Times 50 bold',
                         background = 'grey', foreground = 'white')
         header_label = Label(header_frame, text = "The Contact Book",
                              style = 'Header.TLabel')
@@ -26,11 +27,12 @@ class HomeWindow(Tk):
         navigation_frame = Frame(self, style = 'Header.TFrame')
         navigation_frame.pack(side = LEFT, fill = Y) # Aligned To Left Side
 
-        style.configure('Sidebar.TButton', background = 'grey', font = 'Times 13 bold',
-                         width = 18, foreground = 'grey')
+        style.configure('Sidebar.TButton', background = 'grey', font = 'Times 16 bold',
+                         width = 16, foreground = 'grey')
 
-        manage_contacts_button = Button(navigation_frame, text = "Manage Contacts", style = 'Sidebar.TButton')
-        manage_contacts_button.pack(padx = 10, ipadx = 10, ipady = 10) # , command = self.all_contacts_frame) # Imported From 'Contacts.py'
+        manage_contacts_button = Button(navigation_frame, text = "Manage Contacts", style = 'Sidebar.TButton',
+                                        command = self.manage_contacts_button_click)
+        manage_contacts_button.pack(padx = 10, ipadx = 10, ipady = 10)
 
         change_Password_button = Button(navigation_frame, text  = "Change Password", style = 'Sidebar.TButton',
                                         command = self.change_password_button_click)
@@ -44,17 +46,18 @@ class HomeWindow(Tk):
 
         self.content_frame = Frame(self, style = 'Navigation.TFrame')
         self.content_frame.pack(fill = BOTH, expand = TRUE)
-
+        
         Contacts.ManageContactsFrame(self.content_frame)
 
-    def all_contacts_frame(self):
-            
-        Contacts.ManageContactsFrame(self.content_frame)
 
     def logout_button_click(self):
         self.destroy()
         Login.LoginWindow()
 
-    def change_password_button_click(self):
+
+    def change_password_button_click(self): # In The Sidebar
         Password.ChangePasswordFrame(self.content_frame)
-        
+
+
+    def manage_contacts_button_click(self):
+        Contacts.ManageContactsFrame(self.content_frame)
