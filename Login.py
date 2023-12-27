@@ -53,7 +53,10 @@ class LoginWindow(Tk):
                                 command = self.login_button_click)
         login_button.grid(row = 2, column = 1, pady = 10)
 
-    def login_button_click(self):
+        login_button.bind('<Return>', self.login_button_click) # Button will also work on pressing 'ENTER KEY'
+
+
+    def login_button_click(self, event = None):
         con = sqlite3.connect('The-Contact-Book//Contacts.db')
         cur = con.cursor()
         cur.execute("SELECT * FROM LoginInfo WHERE Username = ? AND Password = ?",
@@ -64,6 +67,8 @@ class LoginWindow(Tk):
             Home.HomeWindow() # To Open Home Window When The Login In Successfull
         else: # Will Execute When Username & Password Is Incorrect
             messagebox.showinfo("Error Messsage","Incorrect Username or Password")
+
+
 
 if __name__ == "__main__":
     

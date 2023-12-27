@@ -42,6 +42,7 @@ class ManageContactsFrame(Frame):
         add_new_contact_button = Button(self.contact_list_frame, text = "+ Add New Contact",
                                         command = self.add_new_contact_button_click)
         add_new_contact_button.grid(row = 0, column = 1, pady = 10, ipady = 5, sticky = E)
+        add_new_contact_button.bind('<Return>', self.add_new_contact_button_click)
 
         name_label = Label(self.contact_list_frame, text = "Name :")
         name_label.grid(row = 1, column = 0)
@@ -71,11 +72,11 @@ class ManageContactsFrame(Frame):
         self.contacts_treeview.bind('<<TreeviewSelect>>',self.treeview_row_selection) # '<< Virtual Event >>'
 
 
-    def add_new_contact_button_click(self):
+    def add_new_contact_button_click(self, event = None):
         self.contact_list_frame.destroy()
 
-        self.add_new_contact_frame = Frame()
-        self.add_new_contact_frame.place(relx = .5, rely = .5, anchor = CENTER)
+        self.add_new_contact_frame = Frame(self)
+        self.add_new_contact_frame.place(relx = .5, rely = .37, anchor = CENTER)
 
         name_label = Label(self.add_new_contact_frame, text = "Name : ", style = 'TLabel')
         name_label.grid(row = 0, column = 0, sticky = E)
@@ -106,9 +107,10 @@ class ManageContactsFrame(Frame):
         save_button = Button(self.add_new_contact_frame, text = "Save", style = 'TButton',
                              command = self.save_button_click)
         save_button.grid(row = 4, column = 1, padx = 10, pady = 10, ipadx = 5, ipady = 5)
+        save_button.bind('<Return>', self.save_button_click)
 
 
-    def save_button_click(self):
+    def save_button_click(self, event = None):
 
         self.cur.execute("SELECT * FROM Contacts WHERE Phone_Number = ? OR Email_Id = ?", 
                          (self.phone_no_entry.get(),self.email_entry.get()))       
@@ -139,7 +141,7 @@ class ManageContactsFrame(Frame):
         # 'item' -> 'row' && 'selection' -> Brings Index Of Selected Row
         self.contact_list_frame.destroy()
 
-        self.update_delete_contact_frame = Frame()
+        self.update_delete_contact_frame = Frame(self)
         self.update_delete_contact_frame.place(relx = .5, rely = .5, anchor = CENTER)
 
         name_label = Label(self.update_delete_contact_frame, text = "Name : ", style = 'TLabel')
@@ -174,13 +176,15 @@ class ManageContactsFrame(Frame):
         update_button = Button(self.update_delete_contact_frame, text = "Update", style = 'TButton',
                                command = self.update_button_click)
         update_button.grid(row = 4, column = 1, padx = 10, pady = 10, ipadx = 5, ipady = 5)
+        update_button.bind('<Return>', self.update_button_click)
 
         delete_button = Button(self.update_delete_contact_frame, text = "Delete", style = 'TButton',
                                command = self.delete_button_click)
         delete_button.grid(row = 5, column = 1, padx = 10, pady = 10, ipadx = 5, ipady = 5)
+        delete_button.bind('<Return>', self.delete_button_click)
 
 
-    def update_button_click(self):
+    def update_button_click(self, event = None):
 
         self.cur.execute("UPDATE Contacts SET Name = ?, Phone_number = ?, Email_Id = ?, City = ? WHERE Name = ?",
                          (self.name_entry.get(), self.phone_no_entry.get(), self.email_entry.get(),self.city_entry.get(),
@@ -191,11 +195,11 @@ class ManageContactsFrame(Frame):
         self.create_all_contacts_frame()
 
     
-    def delete_button_click(self):
+    def delete_button_click(self, event = None):
 
         decision = messagebox.askquestion("Confirmation Message","Are You Sure !!\nYou Want To Delete This Record !!")
         if decision == 'yes':
-            self.cur.execute("DELETE FROM Contacts WHERE Email_Id = ?",(self.name_entry.get(),))
+            self.cur.execute("DELETE FROM Contacts WHERE Name = ?",(self.name_entry.get(),))
             self.con.commit()
             messagebox.showinfo("Success Message","Contact Details Are Deleted Successfully.")
             self.update_delete_contact_frame.destroy()
@@ -203,7 +207,3 @@ class ManageContactsFrame(Frame):
 
         self.update_delete_contact_frame.destroy()
         self.create_all_contacts_frame()
-
-        
-        
-        

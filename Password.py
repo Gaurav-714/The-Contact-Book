@@ -14,7 +14,7 @@ class ChangePasswordFrame(Frame):
                         font = 'Times 18 bold', foreground = 'grey')
         style.configure('TButton',width = 15,font = 'Times 14 bold',foreground = 'grey')
 
-        self.place(relx = .5, rely = .3, anchor = CENTER)
+        self.place(relx = .45, rely = .3, anchor = CENTER)
 
         old_password_label = Label(self, text = "Old Password : ")
         old_password_label.grid(row = 0, column = 0, sticky = E)
@@ -41,8 +41,10 @@ class ChangePasswordFrame(Frame):
                                         width = 16, command = self.change_Password_click)
         change_Password_button.grid(row = 3, column = 1, padx = 10, pady = 10,
                                     ipadx = 5, ipady = 5)
+        change_Password_button.bind('<Return>', self.change_Password_click)
 
-    def change_Password_click(self):
+
+    def change_Password_click(self, event = None):
         con = sqlite3.connect('The-Contact-Book//Contacts.db')
         cur = con.cursor()
         cur.execute("SELECT * FROM LoginInfo WHERE Password = ?",

@@ -56,8 +56,18 @@ class HomeWindow(Tk):
 
 
     def change_password_button_click(self): # In The Sidebar
+
+        for inner_frame in self.content_frame.winfo_children():
+        # Destroy all Frames inside the content_Frame one by one..
+            inner_frame.destroy()
+
         Password.ChangePasswordFrame(self.content_frame)
 
 
     def manage_contacts_button_click(self):
+
+        for inner_frame in self.content_frame.winfo_children(): # Get Collection of Frames inside 'content_frame'
+        # Destroy all Frames inside the 'content_frame' one by one..
+            inner_frame.destroy()
+
         Contacts.ManageContactsFrame(self.content_frame)
